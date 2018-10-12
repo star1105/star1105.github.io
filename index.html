@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<canvas id="d1" width="400" height="400"></canvas>
+</body>
+</html>
+<script type="text/javascript">
+        onload = function () {
+            setInterval(oCarw, 1000);//间隔1秒画一次
+        }
+        function oCarw() {
+            //需求1. 跟系统时间一致
+            var oDate = new Date();
+            var oHours = oDate.getHours();
+            var oMin = oDate.getMinutes();
+            var oSec = oDate.getSeconds();
+            //换算成弧度
+            var oHoursValue = (-90 + oHours * 30) * Math.PI / 180;
+            var oMinValue = (-90 + oMin * 6) * Math.PI / 180;
+            var oSecValue = (-90 + oSec * 6) * Math.PI / 180;
+            var oc = document.getElementById("d1");
+            var ogc = oc.getContext("2d");
+            ogc.clearRect(0,0,400,400);//清空画布
+            ogc.beginPath();
+            for (var i = 0; i < 60; i++) {
+                ogc.moveTo(200, 200);
+                //1.空心圆   圆心坐标 xy（200,200）2，150（半径）3,起点弧度 4，画了90度 5，false顺时针画 true逆时针画
+                ogc.arc(200, 200, 150, 6 * i * Math.PI / 180, 6 * (i + 1) * Math.PI / 180, false);
+            }
+            ogc.closePath();
+            ogc.stroke();
+            //画一个小于外圆的 白色的实心圆
+            ogc.beginPath();
+            ogc.moveTo(200, 200);
+            ogc.fillStyle = "#fff";
+           ogc.arc(200, 200, 150 * 19 / 20, 0, 360 * Math.PI / 180, false);
+            ogc.closePath();
+            ogc.fill();
+            //加粗刻度 12点 1点
+            ogc.beginPath();
+            ogc.lineWidth = 3;
+            for (var i = 0; i < 12; i++) {
+                ogc.moveTo(200, 200);
+                ogc.arc(200, 200, 150, 30 * i * Math.PI / 180, 30 * (i + 1) * Math.PI / 180, false);
+            }
+            ogc.closePath();
+            ogc.stroke();
+            //白色的实心圆 覆盖
+            ogc.beginPath();
+            ogc.moveTo(200, 200);
+            ogc.fillStyle = "#fff";
+           ogc.arc(200, 200, 150 * 18 / 20, 0, 360 * Math.PI / 180, false);
+            ogc.closePath();
+            ogc.fill();
+            //画数字
+            var deg = 2 * Math.PI / 12;
+            ogc.save();
+            ogc.beginPath();
+            ogc.translate(200, 200);//将200,200设置为新的坐标原点0,0
+            for (var i = 1; i < 13; i++) {
+                var x1 = Math.sin(i * deg);//正弦
+                var y1 = -Math.cos(i * deg);//余弦
+                ogc.fillStyle = "black";//字体颜色
+                ogc.textAlign = 'center';
+                ogc.textBaseline = 'middle';
+                ogc.fillText(i, x1 * 125, y1 * 125);
+            }
+            ogc.closePath();
+            ogc.restore();
+            //画时针分针秒针
+            ogc.lineWidth = 5;
+            ogc.beginPath();
+            ogc.moveTo(200, 200);
+        ogc.arc(200, 200, 150 * 8 / 20, oHoursValue, oHoursValue, false);
+            ogc.closePath();
+            ogc.stroke();
+            //画分针
+            ogc.lineWidth = 3;
+            ogc.beginPath();
+            ogc.moveTo(200, 200);
+        ogc.arc(200, 200, 150 * 13 / 20, oMinValue, oMinValue, false);
+            ogc.closePath();
+            ogc.stroke();
+            //画秒针
+            ogc.lineWidth = 1;
+            ogc.beginPath();
+            ogc.moveTo(200, 200);
+           ogc.arc(200, 200, 150 * 17 / 20, oSecValue, oSecValue, false);
+            ogc.closePath();
+            ogc.stroke();
+        }
+    </script>
