@@ -1,0 +1,75 @@
+网站组成
+1.网站界面（前台界面+后台界面）
+2.网站功能（前台功能+后台功能）
+3.数据库设计（数据库+表）
+4.手机网站
+5.网站微信
+6.手机app
+
+网站界面
+1.前台界面
+2.后台界面
+
+jquery-1.11.3
+如何在1.9.0以后使用1.8.3的事件，代替方法：
+1）live();
+$(document).on('click','.close',func);
+
+2)die();
+$(document).off('click','.close');
+
+3)bind();
+$('.close').on('click',func);
+
+4)unbind();
+$('.close').off('click');
+
+5)toggle();
+i=0
+$('img').click(function(){
+    if(i%2==0){
+    this.src='b.png';
+    }else{
+           this.src='a.png';
+    }
+    i++;
+});
+
+
+
+下面这个jQuery插件能够还原1.8的toggle的功能，
+如果你需要，可以直接把下面这段代码拷贝到你的jQuery里面，
+然后跟平时一样使用toggle的功能即可。
+//toggle plugin from caibaojian.com
+$.fn.toggle = function( fn, fn2 ) {
+    var args = arguments,guid = fn.guid || $.guid++,i=0,
+    toggler = function( event ) {
+      var lastToggle = ( $._data( this, "lastToggle" + fn.guid ) || 0 ) % i;
+      $._data( this, "lastToggle" + fn.guid, lastToggle + 1 );
+      event.preventDefault();
+      return args[ lastToggle ].apply( this, arguments ) || false;
+    };
+    toggler.guid = guid;
+    while ( i < args.length ) {
+      args[ i++ ].guid = guid;
+    }
+    return this.click( toggler );
+
+
+
+
+bootstrap-3.3.5
+
+
+
+-----------------------------------------------------
+console与调试器结合
+//知识点：方便用于调试的方法
+// console.log({'name':'user1','age':'123'});
+// console.log([1,2,3,4]);
+-----------------------------------------------------
+
+
+
+
+
