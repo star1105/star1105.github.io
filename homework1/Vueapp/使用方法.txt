@@ -1,0 +1,5 @@
+使用Git或cmd，这里使用的Git
+第一步：cd sell
+第二步：npm run dev
+第三步：在浏览器输入地址：http://localhost:8080/#/goods
+作者：穆星，QQ：1327678113
